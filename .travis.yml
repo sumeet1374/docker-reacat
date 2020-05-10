@@ -6,3 +6,16 @@ before_install:
   - docker build -t sd1374/docker-react -f Dockerfile.dev  .
 script:
   - docker run -e CI=true sd1374/docker-react npm run test
+
+deploy:
+  provider: elasticbeanstack
+  region: "ap-south-1"
+  app: "docker-react"
+  env: "DockerReact-env"
+  bucket_name: "elasticbeanstalk-ap-south-1-245668778961"
+  bucket_path: "docker-react"
+  on:
+    branch: master
+access_key_id: $ACCESSKEY        
+secret_access_key: $SECRETKEY
+
